@@ -16,7 +16,7 @@ shinyUI(pageWithSidebar (
         verbatimTextOutput("predictedHoursSleep"),
         p('hours each night.'),
         plotOutput('sleepPlot'),
-        p('This data is loosely taken from:', style="padding-top:20px; font-size:12px;"),
+        p('Data source:', style="padding-top:20px; font-size:12px;"),
         a("http://www.stat.go.jp/english/info/news/1949.htm", 
           href='http://www.stat.go.jp/english/info/news/1949.htm',
           target="_blank", style="font-size:12px;"),

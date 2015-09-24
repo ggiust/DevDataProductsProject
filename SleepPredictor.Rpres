@@ -1,0 +1,91 @@
+Sleep Predictor Web App
+========================================================
+author: ggiust
+date: Sept 23, 2015
+css: SleepPredictor.css
+transition: rotate
+
+![](./SleepPredictor-figure/sleepIcon2.png)<br><br>
+Developing Data Products, course project<br>
+for Johns Hopkins University<br>
+Data Science Specialization
+
+
+The importance of a good night's sleep
+========================================================
+
+![](./SleepPredictor-figure/sleepbenefit.png)
+***
+
+1. Sleepiness can cause accidents  
+  * Exxon Valdez oil spill  
+  * 1986 Chernobyl nuclear meltdown  
+2. Sleepiness effects health  
+  * Heart attack, stroke, etc. 
+3. Lack of sleep ages your skin
+4. Sleep loss impairs judgement
+5. Sleepiness is depressing
+
+
+Sleep data (by age)
+========================================================
+
+```{r, echo=FALSE, warnings=F, messages=F}
+x=c(10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85)
+y=c(8.5,7.65,7.9,7.75,7.65,7.4,7.2,7.1,7.1,7.3,7.5,7.7,8,8.3,8.75,9.7)
+par(cex=1.5)
+plot(x,y, col='gray', type='p',lwd=4, pch=19,
+     xlab="Age (years)",ylab="Sleep (hours)",
+     main="Average Daily Hours of Sleep by Age")
+```
+<small>
+Source: http://www.stat.go.jp/english/info/news/1949.htm
+</small>
+***
+<small>
+Let's compute a person's average and median sleeping hours in R using:
+```{r, warnings=F, messages=F}
+avgSleep<-format(mean(y),digits=2)
+medianSleep<-format(median(y),digits=2)
+```
+which works out to be `r avgSleep` and `r medianSleep` hours, respectively.
+</small>
+
+Creating a model to predict sleep
+========================================================
+
+```{r, echo=FALSE, warnings=F, messages=F}
+par(cex=1.5)
+plot(x,y, col='gray', type='p',lwd=4, pch=19,
+     xlab="Age (years)",ylab="Sleep (hours)",
+     main="Average Daily Hours of Sleep by Age")
+fit<-lm(y~poly(x,2))
+pred_y<-predict(fit)
+lines(x,pred_y,col='red',type='l',lwd=4)
+```
+***
+<small>
+Now let's fit a 2nd order polynomial to the data as follows:
+```{r, warnings=F ,messages=F,eval=F}
+fit<-lm(y ~ x + I(x^2))
+pred_y<-predict(fit)
+```
+and plot it using a <span class="redfont">red line</span>. The computed coefficients are:
+```{r, warnings=F, messages=F}
+fit$coefficients
+```
+</small>
+
+How much do you sleep?
+========================================================
+
+Use the Sleep Predictor web app to find out. Here's how...
+<br><br>
+<small>
+1. Visit: http://garyg.shinyapps.io/DevDataProductsProject<br>
+2. Input your age.<br>
+3. Read the predicted number of hours of sleep.<br><br>
+</small>
+![](./SleepPredictor-figure/sleeppred.png)
+
+<!-- http://rstudio-pubs-static.s3.amazonaws.com/27777_55697c3a476640caa0ad2099fe914ae5.html#/6 -->
